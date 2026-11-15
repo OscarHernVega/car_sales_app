@@ -10,6 +10,7 @@ st.header('Información de vehiculos nuevos del concesionario')
 
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
+scatter_button = st.button('Construir gráfico de dispersión')
 
 # Lógica a ejecutar cuando se hace clic en el botón
 if hist_button:
@@ -26,4 +27,17 @@ if hist_button:
 
     # Mostrar el gráfico Plotly interactivo en la aplicación Streamlit
     # 'use_container_width=True' ajusta el ancho del gráfico al contenedor
+    st.plotly_chart(fig, use_container_width=True)
+
+
+if scatter_button:
+
+    st.write(
+        'Creación de un gráfico de dispersión que muestra año del modelo y precio')
+
+    fig = go.Figure(data=[go.Scatter(
+        x=car_data['model_year'], y=car_data['price'], mode='markers')])
+
+    fig.update_layout(title_text='Año del modelo vs precio')
+
     st.plotly_chart(fig, use_container_width=True)
