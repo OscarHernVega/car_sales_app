@@ -56,8 +56,6 @@ st.plotly_chart(fig2, use_container_width=True)
 
 # histograma de condicion contra año de modelo
 
-condition_counts = car_data.groupby(
-    ['model_year', 'condition']).size().reset_index(name='count')
 condition_order = (
     car_data['condition']
     .value_counts()
@@ -66,20 +64,21 @@ condition_order = (
 
 fig3 = go.Figure()
 
-for condition in condition_counts['condition'].unique():
+for condition in condition_order:
 
-    data = condition_counts[condition_counts['condition'] == condition]
+    data = car_data[car_data['condition'] == condition]
 
     fig3.add_trace(go.Histogram(
-        x=data['model_year'],
-        y=data['count'],
+        x=data['model_year']
         name=condition
+        xbins=dict(size=1)
     ))
 
 fig3.update_layout(
     title='Histograma de condicion contra año de modelo',
     xaxis_title='año del modelo',
     yaxis_title='Count',
+    barmode='stack'
     xaxis_tickangle=-90
 )
 
