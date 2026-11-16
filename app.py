@@ -5,15 +5,6 @@ import streamlit as st
 # Leer los datos del archivo CSV
 car_data = pd.read_csv('new_vehicles.csv')
 
-vehicle_counts = car_data.groupby(
-    ['manufacturer', 'type']).size().reset_index(name='count')
-manufacturer_order = (
-    car_data['manufacturer']
-    .value_counts()
-    .index.tolist()
-)
-
-
 st.header('Información de vehiculos nuevos del concesionario')
 
 # Visualizador de datos
@@ -31,7 +22,16 @@ else:
 
 st.dataframe(filtered_data, use_container_width=True)
 
-# diagrama de barras
+# grafico de barras de fabricante
+
+vehicle_counts = car_data.groupby(
+    ['manufacturer', 'type']).size().reset_index(name='count')
+manufacturer_order = (
+    car_data['manufacturer']
+    .value_counts()
+    .index.tolist()
+)
+
 fig2 = go.Figure()
 
 for vehicle_type in vehicle_counts['type'].unique():
@@ -53,6 +53,38 @@ fig2.update_layout(
 )
 
 st.plotly_chart(fig2, use_container_width=True)
+
+# histograma de condicion contra año de modelo
+
+condition_counts = car_data.groupby(
+    ['model_year', 'condition']).size().reset_index(name='count')
+condition_order = (
+    car_data['condition']
+    .value_counts()
+    .index.tolist()
+)
+
+fig3 = go.Figure()
+
+for condition in condition_counts['condition'].unique():
+
+    data = condition_counts[condition_counts['condition'] == condition_counts]
+
+    fig3.add_trace(go.Histogram(
+        x=data['model_year'],
+        y=data['count'],
+        name=condition
+    ))
+
+fig3.update_layout(
+    title='Histograma de condicion contra año de modelo',
+    xaxis_title='año del modelo',
+    yaxis_title='Count',
+    barmode='stack',
+    xaxis_tickangle=-90
+)
+
+st.plotly_chart(fig3, use_container_width=True)
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
 scatter_button = st.button('Construir gráfico de dispersión')
