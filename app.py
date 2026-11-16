@@ -69,8 +69,8 @@ for condition in condition_order:
     data2 = car_data[car_data['condition'] == condition]
 
     fig3.add_trace(go.Histogram(
-        x=data2['model_year']
-        name=condition
+        x=data2['model_year'],
+        name=condition,
         xbins=dict(size=1)
     ))
 
@@ -78,7 +78,7 @@ fig3.update_layout(
     title='Histograma de condicion contra año de modelo',
     xaxis_title='año del modelo',
     yaxis_title='Count',
-    barmode='stack'
+    barmode='stack',
     xaxis_tickangle=-90
 )
 
