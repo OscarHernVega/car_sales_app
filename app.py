@@ -15,7 +15,8 @@ if less_than_1000:
 
     selected_manufacturers = manufacturer_counts[manufacturer_counts < 1000].index
 
-    filtered_data = car_data[car_data['model'].isin(selected_manufacturers)]
+    filtered_data = car_data[car_data['manufacturer'].isin(
+        selected_manufacturers)]
 else:
     filtered_data = car_data
 
