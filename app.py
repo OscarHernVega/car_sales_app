@@ -68,7 +68,7 @@ fig3 = go.Figure()
 
 for condition in condition_counts['condition'].unique():
 
-    data = condition_counts[condition_counts['condition'] == condition_counts]
+    data = condition_counts[condition_counts['condition'] == condition]
 
     fig3.add_trace(go.Histogram(
         x=data['model_year'],
@@ -80,7 +80,6 @@ fig3.update_layout(
     title='Histograma de condicion contra año de modelo',
     xaxis_title='año del modelo',
     yaxis_title='Count',
-    barmode='stack',
     xaxis_tickangle=-90
 )
 
