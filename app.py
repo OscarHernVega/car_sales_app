@@ -5,6 +5,15 @@ import streamlit as st
 # Leer los datos del archivo CSV
 car_data = pd.read_csv('new_vehicles.csv')
 
+vehicle_counts = car_data.groupby(
+    ['manufacturer', 'type']).size().reset_index(name='count')
+manufacturer_order = (
+    car_data['manufacturer']
+    .value_counts()
+    .index.tolist()
+)
+
+
 st.header('Información de vehiculos nuevos del concesionario')
 
 # Visualizador de datos
@@ -21,6 +30,33 @@ else:
     filtered_data = car_data
 
 st.dataframe(filtered_data, use_container_width=True)
+
+# diagrama de barras
+fig = go.Figure()
+
+for vehicle_type in vehicle_counts['type'].unique():
+
+    data = vehicle_counts[vehicle_counts['type'] == vehicle_type]
+
+    fig.add_trace(go.Bar(
+        x=data['manufacturer'],
+        y=data['count'],
+        name=vehicle_type
+    ))
+
+fig.update_layout(
+    title='Vehicle types by manufacturer',
+    xaxis_title='Manufacturer',
+    yaxis_title='Count',
+    barmode='stack',
+    xaxis_tickangle=-90
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+st.subheader("Vehicle types by manufacturer")
+
+st.plotly_chart(fig, use_container_width=True)
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
 scatter_button = st.button('Construir gráfico de dispersión')
@@ -54,14 +90,3 @@ if scatter_button:
     fig.update_layout(title_text='Año del modelo vs precio')
 
     st.plotly_chart(fig, use_container_width=True)
-
-# build_histogram = st.checkbox('Construir un histograma')
-
-# if build_histogram:  # si la casilla de verificación está seleccionada
-    # st.write('Construir un histograma para la columna odómetro')
-    # fig = go.Figure(data=[go.Scatter(
-    #    x=car_data['model_year'], y=car_data['price'], mode='markers')])
-
-    # fig.update_layout(title_text='Año del modelo vs precio')
-
-    # st.plotly_chart(fig, use_container_width=True)
