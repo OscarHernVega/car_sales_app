@@ -8,7 +8,7 @@ car_data = pd.read_csv('new_vehicles.csv')
 st.header('Información de vehiculos nuevos del concesionario')
 
 # Visualizador de datos
-less_than_1000 = st.checkbox('Incluye fabricantes con menos de 1000 entradas')
+less_than_1000 = st.checkbox('Muestra fabricantes con menos de 1000 entradas')
 
 if less_than_1000:
     manufacturer_counts = car_data['manufacturer'].value_counts()
@@ -45,9 +45,9 @@ for vehicle_type in vehicle_counts['type'].unique():
     ))
 
 fig2.update_layout(
-    title='Vehicle types by manufacturer',
-    xaxis_title='Manufacturer',
-    yaxis_title='Count',
+    title='tipos de vehiculo por fabricante',
+    xaxis_title='Fabricante',
+    yaxis_title='Cuenta',
     barmode='stack',
     xaxis_tickangle=-90
 )
@@ -77,7 +77,7 @@ for condition in condition_order:
 fig3.update_layout(
     title='Histograma de condicion contra año de modelo',
     xaxis_title='año del modelo',
-    yaxis_title='Count',
+    yaxis_title='Cuenta',
     barmode='stack',
     xaxis_tickangle=-90
 )
@@ -98,7 +98,7 @@ manufacturer2 = st.selectbox(
 data1 = car_data[car_data['manufacturer'] == manufacturer1]
 data2 = car_data[car_data['manufacturer'] == manufacturer2]
 
-normalize = st.checkbox('Normalize histogram')
+normalize = st.checkbox('Normalizar histograma')
 fig4 = go.Figure()
 
 fig4.add_trace(go.Histogram(
@@ -117,9 +117,9 @@ fig4.add_trace(go.Histogram(
 
 
 fig4.update_layout(
-    title='Compare price distribution between manufacturers',
-    xaxis_title='Price',
-    yaxis_title='Percent' if normalize else 'Count',
+    title='Compara distribución de precios entre fabricantes',
+    xaxis_title='Precio',
+    yaxis_title='Porcentaje' if normalize else 'Cuenta',
     barmode='overlay'
 )
 
