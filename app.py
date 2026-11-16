@@ -110,7 +110,8 @@ fig4.add_trace(go.Histogram(
     name=manufacturer2
 ))
 normalize = st.checkbox('Normalize histogram')
-
+if normalize:
+    fig4.update_layout(histnorm='percent')
 
 fig4.update_layout(
     title='Compare price distribution between manufacturers',
