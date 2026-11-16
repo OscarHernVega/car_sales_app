@@ -105,14 +105,14 @@ fig4.add_trace(go.Histogram(
     x=data1['price'],
     name=manufacturer1,
     histnorm='percent' if normalize else None,
-    marker=dict(opacity=0.5)
+    marker=dict(opacity=0.5, color='blue')
 ))
 
 fig4.add_trace(go.Histogram(
     x=data2['price'],
     name=manufacturer2,
     histnorm='percent' if normalize else None,
-    marker=dict(color='red')
+    marker=dict(color='red', opacity=0.6)
 ))
 
 
