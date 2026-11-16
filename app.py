@@ -7,7 +7,19 @@ car_data = pd.read_csv('new_vehicles.csv')
 
 st.header('Información de vehiculos nuevos del concesionario')
 
+# Visualizador de datos
+less_than_1000 = st.checkbox('Incluye modelos con menos de 1000 entradas')
 
+if less_than_1000:
+    model_counts = car_data['model'].value_counts()
+
+    selected_models = model_counts[model_counts < 1000].index
+
+    filtered_data = car_data['model'].isin(selected_models)
+else:
+    filtered_data = car_data
+
+st.dataframe(filtered_data, use_container_width=True)
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
 scatter_button = st.button('Construir gráfico de dispersión')
@@ -42,13 +54,13 @@ if scatter_button:
 
     st.plotly_chart(fig, use_container_width=True)
 
-build_histogram = st.checkbox('Construir un histograma')
+# build_histogram = st.checkbox('Construir un histograma')
 
-if build_histogram:  # si la casilla de verificación está seleccionada
-    st.write('Construir un histograma para la columna odómetro')
-    fig = go.Figure(data=[go.Scatter(
-        x=car_data['model_year'], y=car_data['price'], mode='markers')])
+# if build_histogram:  # si la casilla de verificación está seleccionada
+    # st.write('Construir un histograma para la columna odómetro')
+    # fig = go.Figure(data=[go.Scatter(
+    #    x=car_data['model_year'], y=car_data['price'], mode='markers')])
 
-    fig.update_layout(title_text='Año del modelo vs precio')
+    # fig.update_layout(title_text='Año del modelo vs precio')
 
-    st.plotly_chart(fig, use_container_width=True)
+    # st.plotly_chart(fig, use_container_width=True)
