@@ -66,10 +66,10 @@ fig3 = go.Figure()
 
 for condition in condition_order:
 
-    data = car_data[car_data['condition'] == condition]
+    data2 = car_data[car_data['condition'] == condition]
 
     fig3.add_trace(go.Histogram(
-        x=data['model_year']
+        x=data2['model_year']
         name=condition
         xbins=dict(size=1)
     ))
