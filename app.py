@@ -32,19 +32,19 @@ else:
 st.dataframe(filtered_data, use_container_width=True)
 
 # diagrama de barras
-fig = go.Figure()
+fig2 = go.Figure()
 
 for vehicle_type in vehicle_counts['type'].unique():
 
     data = vehicle_counts[vehicle_counts['type'] == vehicle_type]
 
-    fig.add_trace(go.Bar(
+    fig2.add_trace(go.Bar(
         x=data['manufacturer'],
         y=data['count'],
         name=vehicle_type
     ))
 
-fig.update_layout(
+fig2.update_layout(
     title='Vehicle types by manufacturer',
     xaxis_title='Manufacturer',
     yaxis_title='Count',
@@ -52,11 +52,7 @@ fig.update_layout(
     xaxis_tickangle=-90
 )
 
-st.plotly_chart(fig, use_container_width=True)
-
-st.subheader("Vehicle types by manufacturer")
-
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig2, use_container_width=True)
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
 scatter_button = st.button('Construir gráfico de dispersión')
