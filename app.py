@@ -109,6 +109,8 @@ fig4.add_trace(go.Histogram(
     x=data2['price'],
     name=manufacturer2
 ))
+normalize = st.checkbox('Normalize histogram')
+
 
 fig4.update_layout(
     title='Compare price distribution between manufacturers',
@@ -117,10 +119,6 @@ fig4.update_layout(
     barmode='overlay'
 )
 
-normalize = st.checkbox('Normalize histogram')
-
-if normalize:
-    fig4.update_layout(histogram='percent')
 
 st.plotly_chart(fig4, use_container_width=True)
 
