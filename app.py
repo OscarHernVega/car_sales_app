@@ -8,14 +8,14 @@ car_data = pd.read_csv('new_vehicles.csv')
 st.header('Información de vehiculos nuevos del concesionario')
 
 # Visualizador de datos
-less_than_1000 = st.checkbox('Incluye modelos con menos de 1000 entradas')
+less_than_1000 = st.checkbox('Incluye fabricantes con menos de 1000 entradas')
 
 if less_than_1000:
-    model_counts = car_data['model'].value_counts()
+    manufacturer_counts = car_data['manufacturer'].value_counts()
 
-    selected_models = model_counts[model_counts < 1000].index
+    selected_manufacturers = manufacturer_counts[manufacturer_counts < 1000].index
 
-    filtered_data = car_data['model'].isin(selected_models)
+    filtered_data = car_data[car_data['model'].isin(selected_manufacturers)]
 else:
     filtered_data = car_data
 
