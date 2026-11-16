@@ -83,6 +83,48 @@ fig3.update_layout(
 )
 
 st.plotly_chart(fig3, use_container_width=True)
+
+# menus selectores
+
+manufacturers = sorted(car_data['manufacturer'].dropna().unique())
+
+manufacturer1 = st.selectbox('Selecciona fabricante 1', manufacturers)
+
+available_manufacturers = [m for m in manufacturers if m != manufacturer1]
+
+manufacturer2 = st.selectbox(
+    'Selecciona fabricante 2', available_manufacturers)
+
+data1 = car_data[car_data['manufacturer'] == manufacturer1]
+data2 = car_data[car_data['manufacturer'] == manufacturer2]
+
+fig4 = go.Figure()
+
+fig4.add_trace(go.Histogram(
+    x=data1['price'],
+    name=manufacturer1
+))
+
+fig4.add_trace(go.Histogram(
+    x=data2['price'],
+    name=manufacturer2
+))
+
+fig4.update_layout(
+    title='Compare price distribution between manufacturers',
+    xaxis_title='Price',
+    yaxis_title='Percent' if normalize else 'Count',
+    barmode='overlay'
+)
+
+normalize = st.checkbox('Normalize histogram')
+
+if normalize:
+    fig4.update_layout(histogram='percent')
+
+st.plotly_chart(fig4, use_container_width=True)
+
+
 # Crear un botón en la aplicación Streamlit
 hist_button = st.button('Construir histograma')
 scatter_button = st.button('Construir gráfico de dispersión')
