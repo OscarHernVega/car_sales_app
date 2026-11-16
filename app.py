@@ -41,3 +41,14 @@ if scatter_button:
     fig.update_layout(title_text='Año del modelo vs precio')
 
     st.plotly_chart(fig, use_container_width=True)
+
+build_histogram = st.checkbox('Construir un histograma')
+
+if build_histogram:  # si la casilla de verificación está seleccionada
+    st.write('Construir un histograma para la columna odómetro')
+    fig = go.Figure(data=[go.Scatter(
+        x=car_data['model_year'], y=car_data['price'], mode='markers')])
+
+    fig.update_layout(title_text='Año del modelo vs precio')
+
+    st.plotly_chart(fig, use_container_width=True)
